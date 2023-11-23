@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import logo from "../breaking-news.png";
+import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
   render() {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             <img
               className="image px-2"
               style={{ width: "92px", height: "80px" }}
               src={logo}
               alt="site-logo"
             />
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -27,18 +28,28 @@ export class NavBar extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div className="navbar-nav">
-              <a className="nav-item nav-link" href="/">
-                Home
-              </a>
-              <a className="nav-item nav-link" href="/">
+              <Link className="nav-item nav-link" to="/general">
                 News
-              </a>
-              <a className="nav-item nav-link" href="/">
-                About
-              </a>
-              <a className="nav-item nav-link" href="/">
-                Contact
-              </a>
+              </Link>
+              <Link className="nav-item nav-link" to="/business">
+                Business
+              </Link>
+              <Link className="nav-item nav-link" to="/entertainment">
+                Entertainment
+              </Link>
+              <Link className="nav-item nav-link" to="/health">
+                Health
+              </Link>
+              <Link className="nav-item nav-link" to="/science">
+                Science
+              </Link>
+              <Link className="nav-item nav-link" to="/sports">
+                Sports
+              </Link>
+              <Link className="nav-item nav-link" to="/technology">
+                Technology
+              </Link>
+
             </div>
           </div>
         </nav>
