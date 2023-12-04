@@ -22,7 +22,7 @@ const newsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 articles: action.payload.articles,
-                totalResult: action.payload.totalResult,
+                totalResult: action.payload.totalResults,
                 loading: false,
                 error: null,
             };

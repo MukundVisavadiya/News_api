@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewsItem546456546 = (props) => {
+const NewsItem = (props) => {
   let { title, description, imgUrl, url, date, source } = props;
   return (
     <div className="my-3">
@@ -35,8 +35,6 @@ const NewsItem546456546 = (props) => {
 
 }
 
-export default NewsItem546456546;
+export default NewsItem;
 
-export const NewsItem1 = () => {
-  return <>gdfgdfgdfgdfg gfggdf gdfg</>
-}
+

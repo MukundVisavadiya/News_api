@@ -2,40 +2,62 @@ import { connect } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchNews } from '../state/action';
-import NewsItem, { NewsItem1 } from './NewsItem'
+import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 
 const News = (props) => {
     const [page, setPage] = useState(1);
     const apiData = useSelector((state) => state.news);
     const dispatch = useDispatch()
-    console.log(apiData);
+    console.log("This is api data:", apiData);
+
+    const capitalize = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     useEffect(() => {
+        document.title = `${capitalize(props.category)} - Breaking News`;
         dispatch(
-            fetchNews(props.country, props.category, props.apikey, props.pageSize, page)
+            fetchNews(
+                props.country,
+                props.category,
+                props.apikey,
+                props.pageSize,
+                page
+            )
         );
     }, []);
 
+    const handlePrevious = () => {
+        setPage(page - 1);
+        dispatch(
+            fetchNews(
+                props.country,
+                props.category,
+                props.apikey,
+                props.pageSize,
+                page - 1
+            )
+        );
+    };
 
-    // 
+    const handleNext = () => {
+        setPage(page + 1);
+        dispatch(
+            fetchNews(
+                props.country,
+                props.category,
+                props.apikey,
+                props.pageSize,
+                page + 1
+            )
+        );
+    };
 
-    // const capitalize = (string) => {
-    //     if (string && typeof string === 'string') {
-    //         return string.charAt(0).toUpperCase() + string.slice(1);
-    //     }
-    //     return '';
-    // }
-
-    // useEffect(() => {
-    //     document.title = `${capitalize(props.category)} - Breaking News`;
-
-    //     props.fetchNews(props.country, props.category, props.apikey, props.pageSize, page);
-    // }, [props.category, props.country, props.apikey, props.pageSize, page]);
     return (
         <>
-            <NewsItem1 />
-            {apiData.loading && 'LYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props Return LYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props Return LYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props ReturnLYou do not need to include values from ownProps in the object returned from mapStateToProps. connect will automatically merge those different prop sources into a final set of props Return'}
+            <h2 className="text-center" style={{ marginTop: '140px' }}>Breaking News - Top {capitalize(props.category)} Headlines</h2>
+            {apiData.loading && <Spinner />}
             <div className="container">
                 <div className="row py-4">
                     {apiData.articles.map((element) => {
@@ -57,16 +79,30 @@ const News = (props) => {
                         );
                     })}
                 </div>
+                <div className="container d-flex justify-content-between">
+                    <button
+                        type="button"
+                        disabled={page <= 1}
+                        className="btn btn-info text-white"
+                        onClick={handlePrevious}
+                    >
+                        &larr; Previous
+                    </button>
+                    <button
+                        type="button"
+                        disabled={
+                            page + 1 >
+                            Math.ceil(apiData.totalResult / props.pageSize)
+                        }
+                        className="btn btn-info text-white"
+                        onClick={handleNext}
+                    >
+                        Next &rarr;
+                    </button>
+                </div>
             </div>
-
-            <NewsItem1 />
-
         </>
     )
-
-
-
-
 };
 
 
